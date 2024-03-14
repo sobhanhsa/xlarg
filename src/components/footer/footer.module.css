@@ -1,0 +1,99 @@
+.container {
+    color: var(--softTextColor);
+    margin-top: 50px;
+    
+    padding: 20px 0;
+
+    display: flex;
+    justify-content: space-between;    
+    align-items: center;
+}
+
+.etc {
+    width: max-content;
+    text-align: center;
+    font-weight: 900;
+}
+
+.info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logoTitle {
+    font-size: 24px;
+}
+
+.desc {
+    font-weight: 300;
+}
+
+.icons {
+    margin-top: 10px;
+
+    display: flex;
+    gap: 15px;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.links {
+    padding: 0 10px;
+
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-end;
+    align-content: baseline;
+    gap: 100px;
+}
+
+.list {
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listTitle {
+    width: max-content;
+    color: var(--textColor);
+    font-weight: 500;
+    border-bottom: 2px solid var(--textColor);
+}
+
+@media screen and (max-width : 1024px) {
+    .links {
+        gap: 50px;
+    }
+}
+
+@media screen and (max-width : 768px) {
+    .container {
+        flex-direction: column;
+        gap: 50px;
+    }
+    .links {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width : 640px) {
+    
+    .links {
+        font-size: 16px;
+        flex-wrap: wrap;
+    }
+}

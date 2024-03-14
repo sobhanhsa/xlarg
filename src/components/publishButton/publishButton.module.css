@@ -1,0 +1,12 @@
+.publish{
+  /* position: absolute;
+  right: 0; */
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  background-color: #1a8917;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
