@@ -37,10 +37,8 @@ const WritePage = () => {
     const [title,setTitle] = useState("");
 
     const {status} = useSession()
-
-    let router = null
     
-    router  = useRouter()
+    const router  = useRouter()
 
     const fileInputHandler = (e : React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
@@ -128,12 +126,9 @@ const WritePage = () => {
         file && upload();
     },[file])
 
-    if (status === "loading") return (<LoadingComponent />)
-
-
-    if (status !== "authenticated") {
-        setTimeout(() => router!.push("/login"),100)
-    }
+    useEffect(() => {
+        if (status === "unauthenticated") router.push("/login");
+    },[])
     
 
 
