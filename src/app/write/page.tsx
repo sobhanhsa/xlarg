@@ -4,7 +4,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 
 import Image from "next/image";
 import styles from "./writePage.module.css"
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css"
@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { fireBaseApp } from "@/utils/firebase";
 import { slugify } from "@/utils/slugify";
+import { toast } from "react-toastify";
 
 
 const storage = getStorage(fireBaseApp);
@@ -29,6 +30,9 @@ const WritePage = () => {
         ,
         []
     );
+
+
+    const uploadToastId = useRef(null);
 
     const [file,setFile] = useState<File | null>(null)
     const [open , setOpen] = useState<boolean>(false)
@@ -85,6 +89,12 @@ const WritePage = () => {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
+                    
+                    if (!(uploadToastId.current)) {
+                        uploadToastId.current = toast
+                            .warn("uploading image") as any;
+                    }
+
                     switch (snapshot.state) {
                         case 'paused':
                             console.log('Upload is paused');
@@ -92,31 +102,48 @@ const WritePage = () => {
                         case 'running':
                             console.log('Upload is running');
                             break;
-                    }
-                }, 
+                        }
+                    }, 
                 (error) => {
+                    uploadToastId.current = null;
                     // A full list of error codes is available at
                     // https://firebase.google.com/docs/storage/web/handle-errors
                     switch (error.code) {
                         case 'storage/unauthorized':
                             // User doesn't have permission to access the object
+                            uploadToastId.current && toast
+                                .update(uploadToastId.current,{
+                                    type:"error",
+                                    render:"you don't havee access to this image"
+                                })
                             break;
                         case 'storage/canceled':
                             // User canceled the upload
+                            uploadToastId.current && toast
+                                .update(uploadToastId.current,{
+                                    type:"error",
+                                    render:"you canceled upload"
+                                })
                             break;
-
-                        // ...
-
                         case 'storage/unknown':
                             // Unknown error occurred, inspect error.serverResponse
+                            uploadToastId.current && toast
+                                .update(uploadToastId.current,{
+                                    type:"error",
+                                    render:"unknown error occurred"
+                                })
                             break;
                     }
                 }, 
                 () => {
                     // Upload completed successfully, now we can get the download URL
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        uploadToastId.current = null;
                         console.log('File available at', downloadURL);
                         setMedia(downloadURL);
+                        uploadToastId.current && toast
+                            .dismiss(uploadToastId.current)
+                        toast.success("image succesfully uploaded!")
                     });
                 }
             );
