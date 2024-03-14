@@ -32,7 +32,7 @@ const Card = (
                         <h1>{post.title}</h1>
                     </Link>
                     <p className={styles.desc}>
-                        {post.desc.substring(0,76)}
+                        {post.desc.substring(0,75).replace("<p>","").replace("</p>","")}
                     </p>
                     <Link href={`/posts/${post.slug}`} className={styles.link}>Read More</Link>
                 </div>
