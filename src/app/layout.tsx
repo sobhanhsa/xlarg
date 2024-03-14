@@ -6,6 +6,7 @@ import Footer from '@/components/footer/Footer'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import ThemeProvider from '@/providers/ThemeProvider'
 import AuthProvider from '@/providers/authProvider'
+import ToastProvider from '@/providers/ToastProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,13 +26,15 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeContextProvider>
             <ThemeProvider>  
-              <div className='container'>
-                <div className="wrapper">
-                  <Navbar/>
-                    {children}
-                  <Footer/>
+              <ToastProvider>
+                <div className='container'>
+                  <div className="wrapper">
+                    <Navbar/>
+                      {children}
+                    <Footer/>
+                  </div>
                 </div>
-              </div>
+              </ToastProvider>
             </ThemeProvider>
           </ThemeContextProvider>
         </AuthProvider>
