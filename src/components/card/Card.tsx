@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PostType } from "@/types/postType";
 
 const Card = (
-        {key,post}:{key:string,post:PostType}
+        {pkey,post}:{pkey:string,post:PostType}
     ) => {
     
     let desc = post.desc;
@@ -17,7 +17,7 @@ const Card = (
     return ( 
 
 
-        <div key={key} className={styles.container}>
+        <div key={pkey} className={styles.container}>
                 {(post.img) && (<div className={styles.imageContainer}>
                     <Image className={styles.image} src={post.img} alt="" fill />
                 </div>)}
