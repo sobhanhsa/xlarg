@@ -1,34 +1,13 @@
 import Image from "next/image";
 import styles from "./categoryList.module.css"
 import Link from "next/link";
+import { getCategories } from "@/utils/getCats";
+import { categoryType } from "@/types/catType";
 
-//getCats
-
-const getData = async() => {
-    const res = await fetch("http://localhost:3000/api/categories",{
-        cache:"no-store"
-    })
-
-    if (!res.ok) {
-        throw new Error("fetching categories failed")
-    }
-
-    return res.json()
-
-}
-
-type categoryType = {
-    _id      : string;
-    slug    : string; 
-    title   : string;
-    img     : string;
-    Posts   : [];
-
-}
 
 const CategoryList = async() => {
 
-    const categories = (await getData())?.categories;
+    const categories = (await getCategories())?.categories;
 
     return (
         <div className={styles.container}>
