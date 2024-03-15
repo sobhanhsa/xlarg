@@ -1,4 +1,4 @@
-import Editor from "./EditorComponent";
+import Editor from "@/components/textEditor/EditorComponent";
 
 import { getCategories } from "@/utils/getCats";
 

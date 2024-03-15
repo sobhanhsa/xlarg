@@ -3,7 +3,7 @@
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import Image from "next/image";
-import styles from "./writePage.module.css"
+import styles from "./editorComp.module.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // import ReactQuill from "react-quill";
@@ -17,10 +17,14 @@ import { useRouter } from "next/navigation";
 import { fireBaseApp } from "@/utils/firebase";
 import { slugify } from "@/utils/slugify";
 import { toast } from "react-toastify";
+import { categoryType } from "@/types/catType";
+import CategorySelect from "@/components/categorySelect/CategorySelect";
 
 const storage = getStorage(fireBaseApp);
 
-const Editor = () => {
+const Editor = ({cats}:{
+    cats:categoryType[]
+}) => {
     
     
     const ReactQuill = useMemo(
@@ -39,6 +43,8 @@ const Editor = () => {
     const [media,setMedia] = useState<null | string>(null);
     const [title,setTitle] = useState("");
     
+    const [category,setCategory] = useState<null | string>(null);
+
     const {status} = useSession()
     
     const router  = useRouter()
@@ -162,6 +168,7 @@ const Editor = () => {
         <div className={styles.container}>
             <input type="text" placeholder="Title" className={styles.input}
             onChange={ e => setTitle(e.target.value)}/>
+            <CategorySelect  cats={cats} cb={(newCat) => setCategory(newCat)}/>
             <div className={styles.editor}>
                 <button className={styles.button} onClick={() => { setOpen(prev => !prev) }}>
                     <Image src="/plus.png" alt="" width={16} height={16}/>
