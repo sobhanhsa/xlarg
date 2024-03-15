@@ -12,7 +12,7 @@ const Card = (
     
     if ( desc.startsWith("<p>")) {
         desc = desc.slice(3,73)
-    }
+    };
 
     return ( 
 
