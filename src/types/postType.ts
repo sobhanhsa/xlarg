@@ -13,5 +13,7 @@ export type PostType = {
     userEmail   :   string;
     user        :   UserType;     
     comments    :   []
+} & {
+    id:string
 }
 
