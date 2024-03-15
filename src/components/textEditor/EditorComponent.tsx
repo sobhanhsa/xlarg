@@ -54,7 +54,6 @@ const Editor = ({cats}:{
         setFile(e.target.files[0]);
     };
     
-    
     useEffect(() => {
         const upload = () => {
 
@@ -151,6 +150,8 @@ const Editor = ({cats}:{
     },[])
         
     const submitHandler = async() => {
+        !category && toast.error("each post should have a category")
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`,{
             method:"POST",
             body:JSON.stringify({
@@ -168,7 +169,12 @@ const Editor = ({cats}:{
         <div className={styles.container}>
             <input type="text" placeholder="Title" className={styles.input}
             onChange={ e => setTitle(e.target.value)}/>
-            <CategorySelect  cats={cats} cb={(newCat) => setCategory(newCat)}/>
+            <CategorySelect  cats={cats} cb={(newCat) => setCategory(
+                (prevCat) => {
+                    if (prevCat !== newCat) return newCat;
+                    return null
+                }
+            )}/>
             <div className={styles.editor}>
                 <button className={styles.button} onClick={() => { setOpen(prev => !prev) }}>
                     <Image src="/plus.png" alt="" width={16} height={16}/>

@@ -20,7 +20,12 @@ const  CategorySelect = ({
                             key={cat.id} 
                             className={`${styles.category} ${cat.slug === selected && styles.active}`} 
                             onClick={() => {
-                                setSelected(cat.slug);
+                                setSelected(
+                                    (prevCat) => {
+                                        if (prevCat !== cat.slug) return cat.slug
+                                        return null
+                                    }
+                                );
                                 cb(cat.slug);
                             }}
                         >
