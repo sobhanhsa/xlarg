@@ -9,7 +9,7 @@ const WritePage  = async() => {
 
     return (
         <div>
-            <Editor/>
+            <Editor cats={categories} />
         </div>
     )
 };
