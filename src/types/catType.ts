@@ -5,4 +5,6 @@ export type categoryType = {
     img     : string;
     Posts   : [];
 
+} & {
+    id:string
 }
