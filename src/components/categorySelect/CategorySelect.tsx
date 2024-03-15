@@ -5,9 +5,11 @@ import styles from "./categorySelect.module.css"
 import { useState } from "react";
 
 const  CategorySelect = ({
+    defCatSlug,
     cats,
     cb
 }:{
+    defCatSlug:string,
     cats:categoryType[],
     cb:(newCat:string)=>void
 }) => {

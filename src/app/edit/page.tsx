@@ -1,9 +1,16 @@
-import styles from "./editPage.module.css"
+import ClientEditPage from "./client";
 
-const  EditPage = () => {
+import { getCategories } from "@/utils/getCats";
+
+
+
+const EditPage = async() => {
+    
+    const {categories} = await getCategories();
+    
     return (
-        <div className={styles.container}>
-            EditPage   
+        <div>
+            <ClientEditPage cats={categories}/>
         </div>
     )
 };
