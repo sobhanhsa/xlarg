@@ -150,18 +150,26 @@ const Editor = ({cats}:{
     },[])
         
     const submitHandler = async() => {
-        !category && toast.error("each post should have a category")
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`,{
-            method:"POST",
-            body:JSON.stringify({
-                slug:slugify(title),
-                title,
-                desc:value,
-                img:media,
-                catSlug:"travel"
-            })
-        })
+        !category && toast.error("each post should have a category");
+        const slug  = slugify(title);
+        try{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`,{
+                method:"POST",
+                body:JSON.stringify({
+                    slug,
+                    title,
+                    desc:value,
+                    img:media,
+                    catSlug:category,
+                })
+            });
+            toast.success("your post successfully published!");
+            setTimeout(
+                () => router.push("/posts/"+slug)
+            ,1500);
+        }catch(e:any&Error) {
+            toast.error(e.message);
+        };
     };  
         
         
