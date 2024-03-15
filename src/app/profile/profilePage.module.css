@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.post {
+    border-radius: 20px;
+    width: 49%;
+    background-color: var(--softBg);
+    padding: 50px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.subTextContainer{
+    display: flex;
+    gap: 20px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.date {
+    color: var(--softTextColor);
+}
+
+.category {
+    color: red;
+    font-weight: 500;
+}
+
+.imageContainer {
+    background-color: var(--bg);
+    position: relative;
+    width: 125px;
+    aspect-ratio: 1/1;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.iconContainer {
+    border: none;
+    border-radius: 10%;
+    
+}
+
+
+.iconContainer  {
+    border: none;
+    border-radius: 10%;
+    
+}
+
+.iconContainer:hover  {
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: rgb(236, 164, 164);
+    outline: 5px solid rgb(236, 164, 164);
+}
+
+.edit:hover {
+    background-color: var(--bg);
+    outline: 5px solid var(--bg);
+}
